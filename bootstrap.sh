@@ -114,7 +114,7 @@ sudo dnf install -y ansible 1>/dev/null
 echo 
 print_step "Pulling ansible script"
 echo
-ansible-pull ansible-pull -U ${ansible_repository} ${ansible_playbook} --skip-tags "round2"
+ansible-pull -U ${ansible_repository} ${ansible_playbook} --skip-tags "round2"
 echo
 
 # End --------------------------------------------------------------------------
