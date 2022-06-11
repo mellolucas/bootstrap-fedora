@@ -1,0 +1,178 @@
+---
+# DNF Packages ----------------------------------------
+- name: apps | install dnf packages
+  become: true
+  tags: 
+    - dnf
+  vars:
+    packages: "{{ dnf | json_query('@.*[]') }}"
+  timeout: 300
+  dnf:
+    state: present
+    update_cache: true
+    name: "{{ packages }}"
+  notify:
+    - reload systemd
+
+# Flatpak Packages ----------------------------------------
+- name: apps | install flatpak packages
+  tags:
+    - flatpak
+  loop: "{{ flatpak | dict2items }}"
+  when: flatpak | length > 0
+  timeout: 300
+  community.general.flatpak:
+    state: present
+    remote: "{{ item.key }}"
+    name: "{{ item.value | list }}"
+    method: user
+  ignore_errors: true 
+
+# Snap Packages ----------------------------------------
+- name: apps | install snap packages
+  become: true
+  tags:
+    - snap 
+    - round2
+  ignore_errors: true
+  timeout: 300
+  block:
+    - name: regular snap installation
+      snap:
+        state: present
+        name: "{{ snap }}"
+      when: snap | length > 0
+    - name: classic snap installation
+      snap:
+        state: present
+        classic: true
+        name: "{{ snap_classic }}"
+      when: snap_classic | length > 0
+
+# Python Packages (pip) ----------------------------------------
+- name: apps | install python packages
+  tags:
+    - pip
+    - python
+  timeout: 300
+  block:
+    - name: install packages
+      pip:
+        state: present
+        name: "{{ pip }}"
+        extra_args: --user
+    - name: find local glib directory
+      find:
+        file_type: directory
+        paths: "{{ base_dir.local }}/share"
+        use_regex: true
+        patterns: "glib"
+      register: path_local_glib
+    - name: compile user-wide glib schemas
+      vars:
+        glib_schemas: "{{ path_local_glib.files[0].path + '/schemas' }}"
+      when: glib_schemas is directory
+      command: glib-compile-schemas {{ glib_schemas }}
+
+# Nodejs Packages (npm) ----------------------------------------
+- name: apps | install node modules
+  tags:
+    - npm
+    - node
+    - nodejs
+    - round2
+  timeout: 300
+  block:
+    - name: check if npm is installed 
+      ignore_errors: true
+      command: which npm
+      register: npm_bin
+    - name: install npm modules globally
+      become: true
+      when: npm_bin.rc == 0
+      command: "npm install --location=global {{ npm | join(' ') }}"
+
+# Third Party RPM Packages ----------------------------------------
+- name: apps | install third party rpm packages with dnf
+  become: true
+  tags: 
+    - rpm
+    - rpm_third
+    - dnf_external
+  timeout: 600
+  dnf:
+    state: present
+    update_cache: true
+    name: "{{  dnf_external | json_query('@.*') }}"
+  notify:
+    - reload systemd
+
+# displaylink ----------
+- name: apps | install displaylink drivers from source with dnf
+  become: yes
+  tags:
+    - round2
+    - displaylink
+    - from_source
+  vars:
+    gh_repo: "https://api.github.com/repos/{{ github.displaylink }}/releases/latest"
+    jp:
+      "assets[?
+        contains(browser_download_url, '{{ distribution.name }}') && 
+        contains(browser_download_url, '{{ arch }}')
+      ].browser_download_url | sort(@) | reverse(@)[0]"
+  when: github.displaylink | length > 0 
+  timeout: 300
+  block:
+    - name: check if any displaylink hardware exists
+      shell: lsusb -v | grep -i displaylink
+      register: displaylink_connected
+    - name: get latest release from github repo
+      when: displaylink_connected.rc == 0
+      uri:
+        url: "{{ gh_repo }}"
+        method: GET
+        return_content: true
+        status_code: 200
+        body_format: json
+      register: data
+    - name: install rpm
+      when: displaylink_connected.rc == 0
+      dnf:
+        state: latest
+        disable_gpg_check: true
+        name: "{{ data.json | to_json | from_json | json_query(jp) }}"
+
+# Binaries From Source ----------------------------------------
+# nerdctl ----------
+- name: apps | install nerdctl binaries from source
+  become: yes
+  tags:
+    - containerd
+    - nerdctl
+    - from_source
+  vars:
+    arch_alt: "{% if arch == 'x86_64' %}amd64{% else %}{{ arch }}{% endif %}" 
+    gh_repo: "https://api.github.com/repos/{{ github.nerdctl }}/releases/latest"
+    jp:
+      "assets[?
+        contains(browser_download_url, '{{arch_alt }}') &&
+        contains(browser_download_url, '{{ system }}') &&
+        contains(browser_download_url, 'full')
+      ].browser_download_url | sort(@) | reverse(@)[0]"
+  when: github.nerdctl is defined
+  timeout: 600
+  block:
+    - name: get latest release from github repo
+      uri:
+        url: "{{ gh_repo }}"
+        method: GET
+        return_content: true
+        status_code: 200
+        body_format: json
+      register: data
+    - name: install binaries
+      ansible.builtin.unarchive:
+        src: "{{ data.json | to_json | from_json | json_query(jp) }}"
+        dest: /usr/local
+        remote_src: true

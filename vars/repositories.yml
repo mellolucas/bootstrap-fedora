@@ -1,0 +1,52 @@
+---
+github:
+  dotfiles: "mellolucas/dotfiles"
+  ansible_bootstrap: "mellolucas/bootstrap-fedora"
+  displaylink: "displaylink-rpm/displaylink-rpm"
+  nerdctl: "containerd/nerdctl"
+
+flatpak_remote:
+  flathub: 
+    name: "flathub"
+    baseurl: "https://dl.flathub.org/repo/flathub.flatpakrepo"
+
+rpm_fusion:
+  rpmfusion_free: 
+    key: "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020"
+    baseurl: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+  rpmfusion_nonfree: 
+    key: "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020"
+    baseurl: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
+  rpmfusion_tainted_free: 
+    key: "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020"
+    baseurl: "rpmfusion-free-release-tainted" 
+  rpmfusion_tainted_nonfree: 
+    key: "https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020"
+    baseurl: "rpmfusion-nonfree-release-tainted" 
+
+rpm_third_party:
+  google_chrome: 
+    name: google-chrome-stable
+    description: "Google Chrome stable repository"
+    key: "https://dl.google.com/linux/linux_signing_key.pub"
+    baseurl: "http://dl.google.com/linux/chrome/rpm/stable/x86_64"
+  brave: 
+    name: brave
+    description: "Brave Browser repository"
+    key: "https://brave-browser-rpm-release.s3.brave.com/brave-core.asc"
+    baseurl: "https://brave-browser-rpm-release.s3.brave.com/x86_64"
+  1password: 
+    name: 1password
+    description: "1Password stable repository"
+    key: "https://downloads.1password.com/linux/keys/1password.asc"
+    baseurl: "https://downloads.1password.com/linux/rpm/stable/{{ ansible_architecture }}"
+  microsoft_vscode: 
+    name: code
+    description: "Visual Studio Code repository"
+    key: "https://packages.microsoft.com/keys/microsoft.asc"
+    baseurl: "https://packages.microsoft.com/yumrepos/vscode"
+  rancher: 
+    name: rancher
+    description: "Rancher stable repository"
+    key: "https://download.opensuse.org/repositories/isv:/Rancher:/stable/rpm/repodata/repomd.xml.key"
+    baseurl: "https://download.opensuse.org/repositories/isv:/Rancher:/stable/rpm/"

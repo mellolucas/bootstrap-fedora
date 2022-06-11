@@ -1,0 +1,51 @@
+---
+home: "/home/{{ user }}"
+
+base_dir:
+  config: "{{ home }}/.config"
+  cache: "{{ home }}/.cache"
+  local: "{{ home }}/.local"
+  themes: "{{ home }}/.themes"
+  icons: "{{ home }}/.icons"
+  ssh: "{{ home }}/.ssh"
+
+settings:
+  bash:
+    runcom_file: "{{ home }}/.bashrc"
+    runcom_dir: "{{ home }}/.bashrc.d"
+    history_file: "{{ home }}/.bash_history"
+    profile_file: "{{ home }}/.bash_profile"
+    logout_file: "{{ home }}/.bash_logout"
+  zsh: 
+    runcom_file: "{{ home }}/.zshrc"
+    runcom_dir: "{{ home }}/.zshrc.d"
+    history_file: "{{ home }}/.zsh_history"
+  ohmyzsh:
+    runcom_dir: "{{ home }}/.ohmyzsh.d"
+    custom_dir: "{{ home }}/.ohmyzsh_custom.d"
+  vim:
+    runcom_file: "{{ home }}/.vimrc"
+    runcom_dir: "{{ home }}/.vimrc.d"
+  neovim:
+    runcom_file: "{{ home }}/.config/nvim/init.vim"
+  git: 
+    runcom_file: "{{ home }}.gitconfig"  
+  wget:
+    runcom_file: "{{ home }}/.wgetrc"
+  terminator: 
+    runcom_file: "{{ home }}/.terminatorrc"
+  vscode:
+    runcom_dir: "{{ home }}/.vscode.d" 
+
+workspace:
+  projects_dir: "{{ home }}/Projects"
+  builds_dir: "{{ home }}/Builds"
+  templates_dir: "{{ home }}/Templates"
+  desktop_dir: "{{ home }}/Desktop"
+  downloads_dir: "{{ home }}/Downloads"
+  documents_dir: "{{ home }}/Documents"
+  pictures_dir: "{{ home }}/Pictures"
+  music_dir: "{{ home }}/Music"
+  videos_dir: "{{ home }}/Videos"
+  public_dir:  "{{ home }}/Public"
+

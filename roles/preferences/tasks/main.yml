@@ -1,0 +1,27 @@
+---
+- name: set system-related preferences
+  tags: system
+  block:
+    - import_tasks: set_system_behavior.yml
+    - import_tasks: set_system_peripherals.yml
+    - import_tasks: set_system_privacy.yml
+- name: set keybindings
+  tags:
+    - keys
+    - keybindings
+    - shortcuts
+    - hotkeys
+  block:
+    - import_tasks: set_keybindings.yml
+- name: set layout-related preferences
+  tags: layout
+  block:
+    - import_tasks: set_layout_organization.yml
+    - import_tasks: set_layout_interface.yml
+- name: set app-specific preferences
+  tags: customs
+  block:
+    - import_tasks: set_nautilus.yml
+    - import_tasks: set_dashtodock.yml
+    - import_tasks: set_texteditor.yml
+    - import_tasks: set_clock.yml

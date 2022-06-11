@@ -1,0 +1,35 @@
+---
+- name: structure user's home directory 
+  tags: home
+  import_tasks: 
+    file: structure_home.yml
+- name: integrate dotfiles into the system
+  tags: dotfiles
+  import_tasks: 
+    file: integrate_dotfiles.yml
+- name: setup ssh
+  tags: ssh
+  import_tasks: 
+    file: setup_ssh.yml
+- name: setup shell
+  tags: shell
+  import_tasks: 
+    file: setup_shell.yml
+- name: setup terminal
+  tags: terminal
+  import_tasks: 
+    file: setup_terminal.yml
+- name: setup automation tools
+  tags: automation
+  import_tasks:
+    file: setup_automation.yml
+- name: setup virtualization & containers
+  tags: 
+    - containers
+    - virtualization
+  import_tasks: 
+    file: setup_virtualization.yml
+- name: setup vscode
+  tags: vscode
+  import_tasks: 
+    file: setup_vscode.yml

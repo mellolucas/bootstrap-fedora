@@ -1,0 +1,11 @@
+---
+- name: prefs | clock | Disable geolocation support
+  dconf:
+    state: present
+    key: "/org/gnome/clocks/geolocation"
+    value: "false"
+- name: prefs | clock | Add World Clocks
+  dconf:
+    state: present
+    key: "/org/gnome/clocks/world-clocks"
+    value: "{{ gnome_world_clocks }}"

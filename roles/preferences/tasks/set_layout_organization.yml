@@ -1,0 +1,70 @@
+---
+- name: prefs | organization | dash | set favorite apps (dock)
+  dconf:
+    state: present
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['terminator.desktop', 'code.desktop', 'brave-browser.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop']"
+
+# app-folders (https://wiki.gnome.org/HowDoI/AppFolders)
+- name: prefs | organization | appfolders | reset current desktop folders
+  dconf:
+    state: absent
+    key: "/org/gnome/desktop/app-folders/folder-children"
+- name: prefs | organization | appfolders | clean existing desktop folders specifications
+  dconf:
+    state: absent
+    key: "/org/gnome/desktop/app-folders/folder-children"
+- name: prefs | organization | appfolders | create desktop app folders (groups)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folder-children"
+    value: "['Utilities', 'System']"
+
+- name: prefs | organization | appfolders | add apps to the 'utilities' group
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/Utilities/apps"
+    value: "{{ group_utilities }}"
+- name: prefs | organization | appfolders | set 'utilities' group's name
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/Utilities/name"
+    value: "'Utilities'"
+- name: prefs | organization | appfolders | include apps from category into the 'utilities' group
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/Utilities/categories"
+    value: "['Utilities']"
+- name: prefs | organization | appfolders | mark 'utilities' group's name for translation
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/Utilities/translate"
+    value: "true"
+
+- name: prefs | organization | appfolders | add apps to the 'system' group
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/System/apps"
+    value: "{{ group_system }}"
+- name: prefs | organization | appfolders | set 'system' group's name
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/System/name"
+    value: "'System'"
+- name: prefs | organization | appfolders | include apps from category into the 'system' group
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/System/categories"
+    value: "['System']"
+- name: prefs | organization | appfolders | mark 'system' group's name for translation
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/app-folders/folders/System/translate"
+    value: "true"
+
+- name: prefs | organization | desktop | show desktop icons
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/background/show-desktop-icons"
+    value: "true"
+

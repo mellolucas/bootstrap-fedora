@@ -1,0 +1,137 @@
+---
+- name: prefs | user actions | define action on title bar double click
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/preferences/action-double-click-titlebar"
+    value: "'toggle-maximize'"
+- name: prefs | user actions | define action on title bar middle click
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/preferences/action-middle-click-titlebar"
+    value: "'toggle-shade'"
+- name: prefs | user actions | define action on title bar right click
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/preferences/action-middle-right-titlebar"
+    value: "'menu'"
+
+- name: prefs | user actions | disable hot corner
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/enable-hot-corners"
+    value: "false"
+
+- name: prefs | user actions | enable primary paste
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/gtk-enable-primary-paste"
+    value: "true"
+
+- name: prefs | user actions | enable detachable menubar
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/menubar-detachable"
+    value: "true"
+
+- name: prefs | user actions | enable detachable toolbar
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/toolbar-detachable"
+    value: "true"
+
+- name: prefs | user actions | show extended input sources
+  dconf:
+    state: present
+    key: "/org/gnome/mutter/center-new-windows"
+    value: "true"
+
+- name: prefs | user actions | show extended input sources
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/input-sources/show-all-sources"
+    value: "true"
+
+- name: prefs | index | enable emoji partial match
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/emoji/has-partial-match"
+    value: "true"
+- name: prefs | index | set emoji match contition to 'containing'
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/emoji/partial-match-condition"
+    value: "2"
+
+- name: prefs | index | sort directories first (gtk4)
+  dconf:
+    state: present
+    key: "/org/gtk/gtk4/settings/file-chooser/sort-directories-first"
+    value: "true"
+- name: prefs | index | sort directories first (gtk)
+  dconf:
+    state: present
+    key: "/org/gtk/settings/file-chooser/sort-directories-first"
+    value: "true"
+
+- name: prefs | power | set power button action to suspend
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/power-button-action"
+    value: "'suspend'"
+- name: prefs | power | enable dim brightness when idle
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/idle-dim"
+    value: "true"
+- name: prefs | power | set dim brightness idle timeout
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/idle-brightness"
+    value: "uint32 30"
+- name: prefs | power | set action to suspend when inactive (ac)
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'suspend'"
+- name: prefs | power | set inactive timeout (ac)
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout"
+    value: "uint32 1200"
+- name: prefs | power | set action to suspend when inactive (battery)
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
+    value: "'suspend'"
+- name: prefs | power | set inactive timeout (battery)
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout"
+    value: "uint32 600"
+- name: prefs | power | enable power saver profile on low battery
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/power/power-saver-profile-on-low-battery"
+    value: "true"
+    
+- name: prefs | session | set session idle delay
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 120"
+
+- name: prefs | media | disable automount media
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/media-handling/automount"
+    value: "false"
+- name: prefs | media | disable auto open for automounted media
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/media-handling/automount-open"
+    value: "false"
+- name: prefs | media | never prompt or autotun/start programs when media are inserted
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/media-handling/autorun-never"
+    value: "true"

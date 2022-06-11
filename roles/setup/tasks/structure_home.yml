@@ -1,0 +1,16 @@
+---
+# User workspace directories ----------------------------------------
+- name: setup | structure user workspace
+  loop: "{{ workspace | list }}"
+  file:
+    state: directory
+    path: "{{ item }}"
+    mode: 0755
+
+# System directories ----------------------------------------
+- name: setup | structure local config directories
+  loop: "{{ base_dir | list }}"
+  file:
+    state: directory
+    path: "{{ item }}"
+    mode: 0755

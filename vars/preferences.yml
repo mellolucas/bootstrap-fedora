@@ -1,0 +1,34 @@
+---
+# Interface Organization  ----------------------------------------
+
+group_utilities:
+  - 'org.gnome.Dictionary.desktop'
+  - 'org.gnome.fonts.desktop'
+  - 'org.gnome.Calendar.desktop'
+  - 'org.gnome.Calculator.desktop'
+group_system: 
+  - 'org.gnome.DiskUtility.desktop'
+
+bg_picture_light: "/usr/share/backgrounds/f{{ distribution.version }}/default/f{{ distribution.version }}-01-day.png"
+bg_picture_dark: "/usr/share/backgrounds/f{{ distribution.version }}/default/f{{ distribution.version }}-02-night.png"
+
+
+# Display ----------------------------------------
+
+
+# Interface Elements ----------------------------------------
+
+# Aesthetics ----------------------------------------
+#
+
+gnome_world_clocks: >-
+  [
+  {'location': <(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>},
+  {'location': <(uint32 2, <('São Paulo', 'SBMT', true, [(-0.41044326824509736, -0.8139052020289248)], [(-0.41073414481823473, -0.81361432545578749)])>)>},
+  {'location': <(uint32 2, <('New York', 'KNYC', true, [(0.71180344078725644, -1.2909618758762367)], [(0.71059804659265924, -1.2916478949920254)])>)>},
+  {'location': <(uint32 2, <('Denver', 'KBKF', true, [(0.69307024596694822, -1.8283729951886007)], [(0.69357907925707463, -1.8323287315783685)])>)>},
+  {'location': <(uint32 2, <('Chicago', 'KMDW', true, [(0.72927128935316143, -1.5316185371029443)], [(0.73042086791828009, -1.529781996944241)])>)>},
+  {'location': <(uint32 2, <('London', 'EGWU', true, [(0.89971722940307675, -0.007272211034407213)], [(0.89884456477707964, -0.0020362232784242244)])>)>},
+  {'location': <(uint32 2, <('Amsterdam', 'EHAM', true, [(0.91280719879303418, 0.083194033496160544)], [(0.91367986341903151, 0.085812027374152042)])>)>},
+  {'location': <(uint32 2, <('Dublin', 'EIDW', true, [(0.93258759116453926, -0.1090830782496456)], [(0.93083742735051689, -0.10906368764165594)])>)>}
+  ]

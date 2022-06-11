@@ -1,0 +1,92 @@
+---
+- name: prefs | dashtodock | disable overview on startup
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/disable-overview-on-startup"
+    value: "true"
+- name: prefs | dashtodock | show favorite apps
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-favorites"
+    value: "true"
+- name: prefs | dashtodock | show mounted volumes and devices
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-mounts"
+    value: "true"
+- name: prefs | dashtodock | show network mounted volumes 
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-mounts-network"
+    value: "true"
+- name: prefs | dashtodock | do not show trash 
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
+    value: "false"
+- name: prefs | dashtodock | set click action
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/click-action"
+    value: "'cycle-windows'"
+- name: prefs | dashtodock | require pressure to show dash
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/require-pressure-to-show"
+    value: "true"
+- name: prefs | dashtodock | set pressure threshold
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/pressure-threshold"
+    value: "50"
+- name: prefs | dashtodock | enable show apps animation
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/animation-show-apps"
+    value: "true"
+- name: prefs | dashtodock | set animation time delay
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/animation-time"
+    value: "0.5"
+- name: prefs | dashtodock | set hide delay
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/hide-delay"
+    value: "0.15"
+- name: prefs | dashtodock | disable custom theme
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/apply-custom-theme"
+    value: "false"
+- name: prefs | dashtodock | enable running indicator dominant color
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/running-indicator-dominant-color"
+    value: "true"
+- name: prefs | dashtodock | set indicator style
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/running-indicator-style"
+    value: "'METRO'"
+- name: prefs | dashtodock | enable dynamic alpha
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/transparency-mode"
+    value: "'DYNAMIC'"
+- name: prefs | dashtodock | customize alpha range
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/customize-alphas"
+    value: "true"
+- name: prefs | dashtodock | set max alpha
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/max-alpha"
+    value: "0.9"
+- name: prefs | dashtodock | set min alpha
+  dconf:
+    state: present
+    key: "/org/gnome/shell/extensions/dash-to-dock/min-alpha"
+    value: "0.25"
+

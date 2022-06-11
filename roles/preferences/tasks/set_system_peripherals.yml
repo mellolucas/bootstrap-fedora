@@ -1,0 +1,35 @@
+- name: prefs | peripherals | set double click time
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/mouse/double-click"
+    value: "200"
+- name: prefs | peripherals | enable natural scroll for touchpad
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+    value: "true"
+- name: prefs | peripherals | set touchpad speed
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/speed"
+    value: "0.5"
+- name: prefs | peripherals | enable tap-and-drag for touchpad
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-and-drag"
+    value: "true"
+- name: prefs | peripherals | enable tab-and-drag-lock for touchpad
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-and-drag-lock"
+    value: "true"
+- name: prefs | peripherals | enable tap-to-click touchpad
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+    value: "true"
+- name: prefs | peripherals | enable two-finger scrolling for touchpad
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled"
+    value: "true"

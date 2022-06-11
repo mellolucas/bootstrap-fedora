@@ -1,0 +1,15 @@
+---
+- name: reload systemd
+  become: true
+  systemd:
+    daemon_reload: true
+- name: reexec systemd
+  become: true
+  systemd:
+    daemon_reexec: true
+- name: restart snapd
+  become: true
+  systemd:
+    state: restarted
+    daemon_reload: true
+    name: snapd

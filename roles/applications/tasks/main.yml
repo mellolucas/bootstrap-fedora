@@ -1,0 +1,13 @@
+- name: add remote repositories
+  tags: repos
+  import_tasks: 
+    file: add_repositories.yml
+- name: update system and packages
+  tags: update
+  import_tasks: 
+    file: update.yml
+- name: install packages
+  tags: install
+  import_tasks: 
+    file: install.yml
+

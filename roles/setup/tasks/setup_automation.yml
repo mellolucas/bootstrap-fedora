@@ -1,0 +1,20 @@
+---
+- name: setup | automation | get service facts
+  ansible.builtin.service_facts:
+
+- name: setup | automation | enable cron daemon
+  become: yes
+  when: ansible_facts.services['crond.service'] is defined
+  ansible.builtin.systemd:
+    state: started
+    name: crond
+  notify: enable crond
+
+- name: setup | automation | enable at daemon
+  become: yes
+  when: ansible_facts.services['atd.service'] is defined
+  ansible.builtin.systemd:
+    state: started
+    name: atd
+  notify: enable atd
+

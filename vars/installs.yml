@@ -1,0 +1,105 @@
+---
+# DNF Packages ----------------------------------------
+dnf:
+  main:
+    - "@Development Tools"
+    - "@RPM Development Tools"
+    - "@C Development Tools and Libraries"
+    - "@D Development Tools and Libraries"
+    - dnf-plugins-core
+    - libdrm
+    - libdrm-devel
+    - libcurl
+    - libcurl-devel
+  automation:
+    - ansible
+    - cronie
+    - cronie-anacron
+    - at
+    - batch
+  cli:
+    - zsh
+    - terminator
+    - vim
+    - neovim
+    - bash-completion
+    - curl
+    - wget
+  coding:
+    - python3
+    - python3-pip
+    - golang
+    - git-all
+  virtualization:
+    - "@Virtualization"
+    - containerd
+    - container-selinux
+    - containernetworking-plugins
+    - golang-gvisor
+  aes:
+    - fira-code-fonts
+  utility:
+    - p7zip
+    - glances
+    - nmap
+    - dconf-editor
+    - nautilus-python
+    - tree
+  gnome:
+    - gnome-tweaks
+    - gnome-extensions-app
+    - gnome-shell-extension-user-theme 
+    - gnome-shell-extension-appindicator
+    - gnome-shell-extension-dash-to-dock
+  misc:
+    - cowsay
+
+# Flatpak Packages ----------------------------------------
+flatpak:
+  flathub:
+    - com.logseq.Logseq
+
+# Snap Packages ----------------------------------------
+snap:
+  - authy
+
+snap_classic:
+  - node
+
+# Python Modules ----------------------------------------
+pip:
+  - pynvim
+  - nautilus-open-any-terminal
+
+# NPM Modules ----------------------------------------
+npm:
+  - commitizen
+
+# RPM Third Party Packages ----------------------------------------
+dnf_external:
+  google_chrome_browser: google-chrome-stable
+  brave_browser: brave-browser
+  1password_desktop: 1password
+  1password_cli: 1password-cli
+  vscode: code
+  rancher_desktop: rancher-desktop
+
+# Else ----------------------------------------
+vscode_extension:
+  language_specific:
+    - ms-python.python
+    - eg2.vscode-npm-script
+    - ms-vscode.vscode-typescript-next
+    - redhat.ansible
+  utility:
+    - MS-vsliveshare.vsliveshare
+    - ritwickdey.LiveServer
+    - humao.rest-client
+    - eamodio.gitlens
+    - alefragnani.Bookmarks
+    - streetsidesoftware.code-spell-checker
+    - GitHub.copilot
+  aes:
+    - dracula-theme.theme-dracula
+    - PKief.material-icon-theme
+

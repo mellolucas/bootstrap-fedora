@@ -1,0 +1,74 @@
+---
+# Flatpak Remotes ----------------------------------------
+- name: apps | add flatpak remote repositories
+  tags:
+    - flatpak
+  loop: "{{ flatpak_remote | json_query('@.*') }}"
+  when: flatpak_remote | length > 0
+  flatpak_remote:
+    state: present
+    name: "{{ item.name }}"
+    flatpakrepo_url: "{{ item.baseurl }}"
+    method: user
+
+# RPM Fusion Repositories ----------------------------------------
+- name: apps | add rpm fusion repositories
+  become: true
+  tags:
+    - rpm
+    - rpm_fusion
+  when: rpm_fusion | length > 0
+  block:
+    - name: add vendor's signing key
+      loop: "{{ rpm_fusion | json_query('@.*') }}"
+      rpm_key:
+        state: present
+        key: "{{ item.key }}"
+    - name: enable rpm repositories
+      loop: "{{ rpm_fusion | json_query('@.*') }}"
+      dnf:
+        state: present
+        update_cache: true
+        name: "{{ item.baseurl }}"
+
+# Third Party RPM Repositories ----------------------------------------
+- name: apps | add 3rd party rpm repositories
+  become: true
+  tags:
+    - rpm
+    - rpm_third
+  when: rpm_third_party | length > 0
+  block:
+    - name: add vendor's signing key
+      loop: "{{ rpm_third_party | json_query('@.*') }}"
+      rpm_key:
+        state: present
+        key: "{{ item.key }}"
+    - name: enable repositories
+      loop: "{{ rpm_third_party | json_query('@.*') }}"
+      yum_repository:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        baseurl: "{{ item.baseurl }}"
+        enabled: true
+        gpgcheck: true
+        gpgkey: "{{ item.key }}"
+
+# Snap Package Manager ----------------------------------------
+- name: apps | enable Snap package manager
+  become: yes
+  tags:
+    - snap
+  block:
+    - name: install snapd
+      dnf:
+        state: present
+        update_cache: true
+        name: snapd
+      notify:
+        - restart snapd
+    - name: enable classic Snap support
+      file:
+        state: link
+        src: /var/lib/snapd/snap
+        dest: /snap

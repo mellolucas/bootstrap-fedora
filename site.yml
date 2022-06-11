@@ -1,0 +1,55 @@
+---
+- name: full os setup
+  hosts: localhost
+  gather_facts: true
+  vars_prompt:
+    - name: ansible_become_pass
+      prompt: "[sudo] Enter password for the user"
+      private: true
+      unsafe: true
+  pre_tasks:
+    - name: validate auth
+      tags: always
+      become: true
+      dnf: 
+        state: present
+        name: dnf
+      timeout: 120
+    - name: include vars
+      tags: always
+      include_vars:
+        dir: vars
+    - name: prevent system from suspending during execution (battery)
+      tags: always
+      command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type nothing
+    - name: prevent system from suspending during execution (ac)
+      tags: always
+      command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing
+  tasks:
+    - name: import applications role
+      tags: 
+        - apps
+        - roles
+      import_role:
+        name: applications
+    - name: import setup role
+      tags: 
+        - setup
+        - settings
+        - roles
+      import_role:
+        name: setup
+    - name: import preferences role
+      tags: 
+        - preferences
+        - prefs
+        - roles
+      import_role:
+        name: preferences
+  post_tasks:
+    - name: restore settings to suspend when inactive (battery)
+      tags: always
+      command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type suspend
+    - name: restore settings to suspend when inactive (ac)
+      tags: always
+      command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type suspend

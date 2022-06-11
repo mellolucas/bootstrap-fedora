@@ -1,0 +1,73 @@
+---
+# Terminal Emulator ----------------------------------------
+- name: setup | terminal | check if terminator is installed
+  tags: terminator
+  ignore_errors: true
+  command: which terminator
+  register: terminator_bin
+
+- name: setup | terminal | setup terminator
+  become: true
+  tags: terminator
+  vars:
+    pattern_exec: '^(Exec=terminator)( -g [^\s\n]+/[^\s\n]+)?( .*)?$'
+    replace_exec: '\1 -g {{ settings.terminator.runcom_file }}\3'
+  when: terminator_bin.rc == 0
+  block:
+    - name: find desktop entry file
+      shell: updatedb && locate --regex 'terminator\.desktop$'
+      register: terminator_entry
+    - name: backup desktop entry file
+      copy:
+        remote_src: true
+        src: "{{ terminator_entry.stdout_lines[0] }}"
+        dest: "{{ terminator_entry.stdout_lines[0] }}.backup"
+        backup: true
+      when: terminator_entry.stdout_lines[0] is file
+    - name: add -g (config path) option to Exec key-value pairs
+      replace: 
+        path: "{{ terminator_entry.stdout_lines[0] }}"
+        regexp: "{{ pattern_exec }}"
+        replace: "{{ replace_exec }}"
+      when: terminator_entry.stdout_lines[0] is file
+    - name: integrate to nautilus
+      dconf:
+        state: present
+        key: "/com/github/stunkymonkey/nautilus-open-any-terminal/terminal"
+        value: "'terminator'"
+
+# Terminal Text Editor ----------------------------------------
+- name: setup | terminal | check if nvim is installed
+  tags: nvim
+  ignore_errors: true
+  command: which nvim
+  register: nvim_bin
+
+- name: setup | terminal | setup nvim
+  tags: nvim
+  when: nvim_bin.rc == 0
+  block:
+    - name: backup nvim's init.vim file
+      copy:
+        remote_src: true
+        src: "{{ settings.neovim.runcom_file }}"
+        dest: "{{ settings.neovim.runcom_file }}.backup"
+        backup: true
+      when: settings.neovim.runcom_file is file
+    - name: set nvim's init.vim to use .vimrc
+      copy:
+        dest: "{{ settings.neovim.runcom_file }}"
+        content: |
+          set runtimepath^=~/.vimrc.d
+          let &packpath=&runtimepath
+          source ~/.vimrc
+        force: true
+    - name: set sudo to use nvim as default editor
+      become: true
+      lineinfile:
+        state: present
+        path: /etc/sudoers
+        regexp: '^#?Defaults editor='
+        insertafter: '^#[ ]+Defaults spec.*$'
+        line: Defaults editor=/usr/bin/nvim
+        backup: true

@@ -1,0 +1,51 @@
+---
+# Typing specials ----------------------------------------
+- name: prefs | keys | emoji compose key
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/emoji/hotkey"
+    value: "['<Control>period']"
+- name: prefs | keys | unicode compose key
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/emoji/hotkey/unicode-hotkey"
+    value: "['<Control><Shift>u', '<Control>comma']"
+
+- name: prefs | keys | set compose key and alt chars key
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "['lv3:rwin_switch', 'compose:ralt']"
+
+- name: prefs | keys | switch applications
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-applications"
+    value: "['<Alt>Tab']"
+- name: prefs | keys | switch windows of an application
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-group"
+    value: "['<Super>Tab']"
+
+- name: prefs | keys | legacy gnome windows | close tab
+  dconf:
+    state: present
+    key: "/org/gnome/terminal/legacy/keybindings/close-tab"
+    value: "['<Control>F4']"
+- name: prefs | keys | legacy gnome windows | new tab
+  dconf:
+    state: present
+    key: "/org/gnome/terminal/legacy/keybindings/new-tab"
+    value: "['<Control><Shift>t']"
+- name: prefs | keys | legacy gnome windows | next tab
+  dconf:
+    state: present
+    key: "/org/gnome/terminal/legacy/keybindings/next-tab"
+    value: "['<Control>Tab']"
+- name: prefs | keys | legacy gnome windows | previous tab
+  dconf:
+    state: present
+    key: "/org/gnome/terminal/legacy/keybindings/prev-tab"
+    value: "['<Control><Shift>Tab']"
+

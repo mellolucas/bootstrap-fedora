@@ -1,0 +1,13 @@
+---
+- name: setup | vscode | check if vscode is installed
+  tags: vscode
+  command: which code
+  register: vscode_bin
+
+- name: setup | vscode | install extensions
+  tags: vscode
+  loop: "{{ vscode_extension | json_query('@.*[]' ) }}"
+  when: vscode_bin.rc == 0
+  command : code --install-extension {{ item }} --force
+
+# TODO: integrate vscode configs

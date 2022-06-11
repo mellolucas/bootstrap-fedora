@@ -1,0 +1,70 @@
+---
+# Update DNF ----------------------------------------
+- name: apps | update system
+  become: true
+  tags: 
+    - routine
+    - dnf
+  block:
+    - name: clean installed packages
+      dnf:
+        autoremove: true
+    - name: update dnf
+      dnf:
+        state: latest
+        update_cache: true
+        name: "*"
+      notify:
+        - reload systemd
+        - reexec systemd
+# Update Flatpak ----------------------------------------
+- name: apps | update flatpak
+  become: true
+  tags: 
+    - routine
+    - flatpak
+  command: flatpak update --user --noninteractive
+
+# Update Snap ----------------------------------------
+- name: apps | update snap
+  become: true
+  tags: 
+    - routine
+    - snap
+  block:
+    - name: check if snap is installed
+      ignore_errors: true
+      command: which snap
+      register: snap_bin
+    - name: update snap
+      when: snap_bin.rc == 0
+      command: snap refresh
+      notify:
+        - restart snapd
+
+# Update PIP ----------------------------------------
+- name: apps | update pip
+  tags: 
+    - routine
+    - pip
+    - python
+  pip:
+    state: latest
+    name: pip
+    extra_args: --upgrade --user
+
+# Update NPM ----------------------------------------
+- name: apps | update npm
+  tags:
+    - npm
+    - node
+    - nodejs
+  block:
+    - name: check if npm is installed 
+      ignore_errors: true
+      command: which npm
+      register: npm_bin
+    - name: update npm globally
+      become: true
+      when: npm_bin.rc == 0
+      command: npm update --location=global

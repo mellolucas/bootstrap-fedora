@@ -1,0 +1,81 @@
+---
+- name: prefs | nautilus | set default compression format
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/compression/default-compression-format"
+    value: "'7z'"
+- name: prefs | nautilus | set icons captions (icon view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/icon-view/captions"
+    value: "['date_modified','size','type']"
+- name: prefs | nautilus | set default zoom level (icon view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/icon-view/default-zoom-level"
+    value: "'standard'"
+- name: prefs | nautilus | set default column order (list view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/list-view/default-column-order"
+    value: "['name', 'size', 'type', 'date_modified_with_time', 'permissions', 'owner', 'group', 'mime_type', 'where', 'date_modified', 'date_accessed', 'date_created', 'recency', 'starred']"
+- name: prefs | nautilus | set default visible columns (list view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/list-view/default-visible-columns"
+    value: "['name', 'size', 'date_modified_with_time', 'starred']"
+- name: prefs | nautilus | set default zoom level (list view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/list-view/default-zoom-level"
+    value: "'standard'"
+- name: prefs | nautilus | enable tree view (list view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/list-view/use-tree-view"
+    value: "true"
+- name: prefs | nautilus | set default folder viewer
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/default-folder-viewer"
+    value: "'list-view'"
+- name: prefs | nautilus | enable tree view (list view)
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/list-view/use-tree-view"
+    value: "true"
+- name: prefs | nautilus | set default sort order
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/default-sort-order"
+    value: "'name'"
+- name: prefs | nautilus | set default search viewer
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/default-search-view"
+    value: "'icon-view'"
+- name: prefs | nautilus | enable create link
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/show-create-link"
+    value: "true"
+- name: prefs | nautilus | enable delete permanently
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/show-delete-permanently"
+    value: "true"
+- name: prefs | nautilus | enable experimental views
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/preferences/use-experimental-views"
+    value: "true"
+- name: prefs | nautilus | set window initial size
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/window-state/initial-size"
+    value: "(1080,650)"
+- name: prefs | nautilus | set side pane width
+  dconf:
+    state: present
+    key: "/org/gnome/nautilus/window-state/sidebar-width"
+    value: "188"

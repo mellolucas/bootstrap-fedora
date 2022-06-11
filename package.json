@@ -1,0 +1,39 @@
+{
+  "name": "bootstrap-fedora",
+  "version": "0.1.0",
+  "description": "Full post-installation setup for Linux/Fedora OS",
+  "main": "site.yml",
+  "scripts": {
+    "test": "ansible-playbook site.yml --syntax-check",
+    "commit": "git-cz",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mellolucas/bootstrap-fedora.git"
+  },
+  "author": "Lucas F O Mello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mellolucas/bootstrap-fedora/issues"
+  },
+  "homepage": "https://github.com/mellolucas/bootstrap-fedora#readme",
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/prompt"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/prompt": "^17.0.0",
+    "commitizen": "^4.2.4",
+    "husky": "^8.0.1"
+  }
+}

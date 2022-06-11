@@ -1,0 +1,13 @@
+- name: enable crond
+  become: true
+  systemd:
+    state: enabled
+    daemon_reload: true
+    name: crond
+
+- name: enable atd
+  become: true
+  systemd:
+    state: enabled
+    daemon_reload: true
+    name: atd

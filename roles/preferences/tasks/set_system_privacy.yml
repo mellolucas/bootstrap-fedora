@@ -1,0 +1,112 @@
+---
+- name: prefs | privacy | require password for file sharing
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/file-sharing/require-password"
+    value: "'always'"
+- name: prefs | privacy | hardware | do not allow applications yo access the camera (off)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/disable-camera"
+    value: "false"
+- name: prefs | privacy | hardware | do not allow applications yo access the microphone (off)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/disable-microphone"
+    value: "false"
+- name: prefs | privacy | hardware | allow applications to output sound
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/disable-sound-output"
+    value: "false"
+- name: prefs | privacy | hardware | enable privacy screen
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/privacy-screen"
+    value: "true"
+
+- name: prefs | privacy | lockscreen | enable lock on screensaver activation
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/screensaver/lock-enabled"
+    value: "true"
+- name: prefs | privacy | lockscreen | set lock delay after screensaver activates
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/screensaver/lock-delay"
+    value: "uint32 180"
+- name: prefs | privacy | lockscreen | disable user switching in the unlock dialog
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/screensaver/user-switch-enabled"
+    value: "false"
+- name: prefs | privacy | lockscreen | do not show notifications in lock screen
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/notifications/show-in-lock-screen"
+    value: "false"
+
+- name: prefs | privacy | identity | disable showing full name in the lock screen
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/screensaver/show-full-name-in-top-bar"
+    value: "false"
+- name: prefs | privacy | identity | hide identity
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/hide-identity"
+    value: "true"
+- name: prefs | privacy | identity | disable showing full name in the user menu (top bar)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/show-full-name-in-top-bar"
+    value: "false"
+
+- name: prefs | privacy | reports | disable sending reports of technical problems to vendor
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/report-technical-problems"
+    value: "false"
+- name: prefs | privacy | reports | disable sending statistics when apps are removed or installed
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/send-software-usage-stats"
+    value: "false"
+
+- name: prefs | privacy | usage | set thumbnail cache maximum age
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/thumbnail-cache/maximum-age"
+    value: "90"
+- name: prefs | privacy | usage | enable application usage monitoring and recording
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/remember-app-usage"
+    value: "true"
+- name: prefs | privacy | usage | enable remembering recently used files
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/rememner-recent-files"
+    value: "true"
+- name: prefs | privacy | usage | set n days to remember recent files (0 for never, -1 for indefinitely)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/recent-files-max-age"
+    value: "15"
+- name: prefs | privacy | usage | remove old temp files automatically
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/remove-old-temp-files"
+    value: "true"
+- name: prefs | privacy | usage | remove old trash files automatically
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/remove-old-trash-files"
+    value: "true"
+- name: prefs | privacy | usage | set n days to keep trash and temp files
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/privacy/old-files-age"
+    value: "uint32 30"
+
+

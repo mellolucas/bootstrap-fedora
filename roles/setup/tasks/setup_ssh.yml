@@ -1,0 +1,17 @@
+---
+# RSA Key ----------------------------------------
+- name: setup | ssh | generate ssh key for user
+  tags: rsa
+  when: ansible_become_pass is defined
+  user:
+    state: present
+    name: "{{ user }}"
+    generate_ssh_key: true
+    ssh_key_type: rsa
+    ssh_key_file: "{{ base_dir.ssh }}/id_rsa"
+    ssh_key_passphrase: "{{ ansible_become_pass }}"
+
+# SSH Server Setup ----------------------------------------
+
+# SSH Hardening ----------------------------------------
+

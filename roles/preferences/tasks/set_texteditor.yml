@@ -1,0 +1,32 @@
+---
+- name: prefs | text editor | enable current line highlighting
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/highlight-current-line"
+    value: "true"
+- name: prefs | text editor | set indent style to use spaces
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/indent-style"
+    value: "'space'"
+- name: prefs | text editor | set tab width to 2
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/tab-width"
+    value: "uint32 2"
+- name: prefs | text editor | show line numbers
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/show-line-numbers"
+    value: "true"
+- name: prefs | text editor | show line numbers
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/show-right-margin"
+    value: "true"
+- name: prefs | text editor | set font
+  dconf:
+    state: present
+    key: "/org/gnome/TextEditor/custom-font"
+    value: "'Fira Code 11'"
+

@@ -1,0 +1,29 @@
+---
+# Nerdctl ----------------------------------------
+- name: setup | enable rootless mode for nerdctl
+  tags:
+    - round2
+    - containerd
+    - nerdctl
+  block:
+    - name: find containerd rootless setup tool
+      become: true
+      shell: updatedb && locate --regex 'usr/local/.*/containerd.*rootless.*setup.*sh$'
+      register: path_rootless_setup_tool
+    - name: run rootless setup tools
+      shell: "{{ path_rootless_setup_tool.stdout_lines[0] }} check"
+
+
+# GVisor ----------------------------------------
+
+
+# Podman ----------------------------------------
+
+
+# Kata Containers ----------------------------------------
+
+
+# Kubernetes ----------------------------------------
+
+
+# Rancher ----------------------------------------

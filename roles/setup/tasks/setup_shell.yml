@@ -1,0 +1,71 @@
+---
+# Setup bashrc -----------------------------------------------------------
+- name: setup | shell | configure .bashrc to use .bashrc.d scripts
+  tags: bash
+  when: settings.bash.runcom_dir is directory
+  block:
+#  - name: insert safety check into bashrc
+#    lineinfile:
+#      state: present
+#      create: true
+#      path: "{{ settings.bash.runcom_file }}"
+#      regexp: "set -u"
+#      insertbefore: '(?i)^#.*User specific.*(?=aliases|functions).*$'
+#      line: "set -u"
+#      validate: "bash -e %s"
+  - name: add begin marker for code block
+    when: settings.bash.runcom_file
+    lineinfile:
+      state: present
+      path: "{{ settings.bash.runcom_file }}"
+      insertbefore: '^if \[ -d (\$HOME|\~|\/home\/).*\.d \].*$'
+      line: '# BEGIN ANSIBLE MANAGED BLOCK'
+  - name: add end marker for code block
+    when: settings.bash.runcom_file
+    lineinfile:
+      state: present
+      path: '{{ settings.bash.runcom_file }}'
+      insertafter: '^unset rc.$'
+      line: '# END ANSIBLE MANAGED BLOCK'
+  - name: enable external scripts on .bashrc
+    blockinfile:
+      state: present
+      path: "{{ settings.bash.runcom_file }}"
+      create: true
+      backup: true
+      insertafter: '(?i)^#.*User specific.*(?=aliases|functions).*$'
+      block: |
+        if [ -d $HOME/{{ settings.bash.runcom_dir | basename }} ]; then
+          for rc in $HOME/{{ settings.bash.runcom_dir | basename }}/*; do
+            if [ -f "$rc" ]; then
+              . "$rc"
+            fi
+          done
+        fi
+        unset rc
+
+# Setup zshrc ------------------------------------------------------------
+- name: setup | shell | check if zsh is isntalled
+  command: which zsh 
+  ignore_errors: true
+  register: zsh_bin
+
+- name: setup | shell | set zsh as default shell
+  become: true
+  user:
+    name: "{{ user }}"
+    shell: "{{ zsh_bin.stdout }}"
+  when: zsh_bin.rc == 0
+
+- name: setup | shell | configure .zshrc to use .zshrc.d scripts
+  when: zsh_bin.rc == 0 and settings.zsh.runcom_dir is directory
+  block:
+  - name: enable external scripts on .zshrc
+    when: settings.zsh.runcom_file is file
+    lineinfile:
+      state: present
+      create: true
+      backup: true
+      path: "{{ settings.zsh.runcom_file }}"
+      regexp: '(?i)^for config.*source.*config\s?$'
+      line: "for config ($HOME/{{ settings.zsh.runcom_dir | basename }}/*.zsh(N)) source $config"

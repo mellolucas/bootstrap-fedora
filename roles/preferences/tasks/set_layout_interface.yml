@@ -1,0 +1,119 @@
+---
+# Display ----------------------------------------
+
+- name: prefs | interface | display | enable auto nightlight switch
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-enabled"
+    value: "true"
+- name: prefs | interface | display | enable auto nightlight schedule
+  dconf:
+    state: present
+    key: "/org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic"
+    value: "true"
+
+
+# Interface Elements ----------------------------------------
+- name: prefs | interface | elements | define titlebar buttons layout
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
+    value: "'appmenu:minimize,maximize,spacer,close'"
+
+- name: prefs | interface | elements | show weekdays
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/clock-show-weekday"
+    value: "true"
+
+- name: prefs | interface | elements | show battery percentage
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
+- name: prefs | interface | elements | tweaks | set enabled gnome shell extensions
+  dconf:
+    state: present
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['appindicatorsupport@rgcjonas.gmail.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'places-menu@gnome-shell-extensions.gcampax.github.com']"
+
+# Aesthetics ----------------------------------------
+
+- name: prefs | interface | aes | set interface text font 
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/font-name"
+    value: "'Cantarell 11'"
+- name: prefs | interface | aes | set document text font 
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/document-font-name"
+    value: "'Fira Code 11'"
+- name: prefs | interface | aes | set monospace text font 
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'Fira Code 11'"
+- name: prefs | interface | aes | set legacy window title font 
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
+    value: "'Cantarell Bold 11'"
+- name: prefs | interface | aes | enable custom font on ibus language panel 
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/use-custom-font"
+    value: "true"
+- name: prefs | interface | aes | set ibus language panel font
+  dconf:
+    state: present
+    key: "/desktop/ibus/panel/custom-font"
+    value: "'Fira Code 10'"
+
+- name: prefs | interface | aes | enable menus tearoff
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/menus-have-tearoff"
+    value: "true"
+
+- name: prefs | interface | aes | remove logo from screen (light)
+  dconf:
+    state: present
+    key: "/org/fedorahosted/background-logo-extension/logo-file"
+    value: "''"
+- name: prefs | interface | aes | remove logo from screen (dark)
+  dconf:
+    state: present
+    key: "/org/fedorahosted/background-logo-extension/logo-file-dark"
+    value: "''"
+
+- name: prefs | interface | aes | disable logo on login screen
+  dconf:
+    state: present
+    key: "/org/gnome/login-screen/logo"
+    value: "''"
+
+- name: prefs | interface | aes | select background picture
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file://{{ bg_picture_light }}'"
+- name: prefs | interface | aes | select background picture (dark)
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "'file://{{ bg_picture_dark }}'"
+
+- name: prefs | interface | aes | set color scheme to 'prefer dark' on user interface
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
+- name: prefs | interface | aes | tweaks | enable dark theme for legacy apps
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Adwaita-dark'"
+
