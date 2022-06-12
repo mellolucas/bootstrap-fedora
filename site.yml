@@ -32,6 +32,9 @@
         - roles
       import_role:
         name: applications
+    - name: flush handlers
+      tags: always
+      meta: flush_handlers
     - name: import setup role
       tags: 
         - setup
@@ -39,6 +42,9 @@
         - roles
       import_role:
         name: setup
+    - name: flush handlers
+      tags: always
+      meta: flush_handlers
     - name: import preferences role
       tags: 
         - preferences
@@ -46,6 +52,9 @@
         - roles
       import_role:
         name: preferences
+    - name: flush handlers
+      tags: always
+      meta: flush_handlers
   post_tasks:
     - name: restore settings to suspend when inactive (battery)
       tags: always

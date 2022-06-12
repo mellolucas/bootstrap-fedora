@@ -2,10 +2,16 @@
   tags: repos
   import_tasks: 
     file: add_repositories.yml
+- name: flush handlers
+  tags: always
+  meta: flush_handlers
 - name: update system and packages
   tags: update
   import_tasks: 
     file: update.yml
+- name: flush handlers
+  tags: always
+  meta: flush_handlers
 - name: install packages
   tags: install
   import_tasks: 
