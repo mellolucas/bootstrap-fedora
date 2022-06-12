@@ -16,7 +16,6 @@ dnf:
     - cronie
     - cronie-anacron
     - at
-    - batch
   cli:
     - zsh
     - terminator
