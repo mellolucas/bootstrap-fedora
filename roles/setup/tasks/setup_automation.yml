@@ -17,4 +17,3 @@
     state: started
     name: atd
   notify: enable atd
-

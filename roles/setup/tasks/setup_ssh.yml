@@ -2,6 +2,7 @@
 # RSA Key ----------------------------------------
 - name: setup | ssh | generate ssh key for user
   tags: rsa
+  no_log: true
   when: ansible_become_pass is defined
   user:
     state: present
