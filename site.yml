@@ -66,7 +66,7 @@
         name: "fedora setup phase 2"
         special_time: reboot
         cron_file: fedora_setup_2
-        job: "ansible-pull -U https://github.com/{{ github.ansible_bootstrap }} unattended.yml --tags 'round2' --extra-vars "user={{ user }}"
+        job: "ansible-pull -U https://github.com/{{ github.ansible_bootstrap }} unattended.yml --tags 'round2' --extra-vars 'user={{ user }}'"
     - name: restore settings to suspend when inactive (battery)
       tags: always
       command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type suspend
