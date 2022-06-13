@@ -76,8 +76,6 @@
 
 # Nodejs Packages (npm) ----------------------------------------
 - name: apps | install node modules
-  become: true
-  become_user: "{{ user }}"
   tags:
     - npm
     - node
@@ -86,6 +84,8 @@
   timeout: 300
   block:
     - name: check if npm is installed 
+      become: true
+      become_user: "{{ user }}"
       ignore_errors: true
       command: which npm
       register: npm_bin
