@@ -76,6 +76,8 @@
 
 # Nodejs Packages (npm) ----------------------------------------
 - name: apps | install node modules
+  become: true
+  become_user: "{{ user }}"
   tags:
     - npm
     - node

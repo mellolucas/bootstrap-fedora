@@ -11,6 +11,8 @@
       shell: updatedb && locate --regex 'usr/local/.*/containerd.*rootless.*setup.*sh$'
       register: path_rootless_setup_tool
     - name: run rootless setup tools
+      become: true
+      become_user: "{{ user }}"
       shell: "{{ path_rootless_setup_tool.stdout_lines[0] }} check"
 
 
