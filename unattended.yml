@@ -2,19 +2,7 @@
 - name: full os setup
   hosts: localhost
   gather_facts: true
-  vars_prompt:
-    - name: ansible_become_pass
-      prompt: "[sudo] Enter password for the user"
-      private: true
-      unsafe: true
   pre_tasks:
-    - name: validate auth
-      tags: always
-      become: true
-      dnf: 
-        state: present
-        name: dnf
-      timeout: 120
     - name: include vars
       tags: always
       include_vars:
@@ -32,9 +20,6 @@
         - roles
       import_role:
         name: applications
-    - name: flush handlers
-      tags: always
-      meta: flush_handlers
     - name: import setup role
       tags: 
         - setup
@@ -42,9 +27,6 @@
         - roles
       import_role:
         name: setup
-    - name: flush handlers
-      tags: always
-      meta: flush_handlers
     - name: import preferences role
       tags: 
         - preferences
@@ -52,21 +34,13 @@
         - roles
       import_role:
         name: preferences
-    - name: flush handlers
-      tags: always
-      meta: flush_handlers
   post_tasks:
-    - name: setup cron job to run phase 2 after reboot
-      become: true
-      tags:
-        - cron
+    - name: remove 2nd phase cron job
       cron:
-        state: present
+        state: absent
         user: root
         name: "fedora setup phase 2"
-        special_time: reboot
         cron_file: fedora_setup_2
-        job: "ansible-pull -U {{ github.ansible_bootstrap }}/main/unattended.yml --tags 'round2'"
     - name: restore settings to suspend when inactive (battery)
       tags: always
       command: gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type suspend

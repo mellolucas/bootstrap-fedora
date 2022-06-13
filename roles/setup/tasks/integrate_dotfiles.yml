@@ -6,6 +6,7 @@
     dest: "{{ workspace.projects_dir }}/dotfiles"
     clone: true
     update: true
+    recursive: true
     track_submodules: true
 
 # Integrate dotfiles ----------------------------------------
