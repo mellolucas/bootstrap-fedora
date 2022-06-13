@@ -70,10 +70,6 @@ pip:
   - pynvim
   - nautilus-open-any-terminal
 
-# NPM Modules ----------------------------------------
-npm:
-  - commitizen
-
 # RPM Third Party Packages ----------------------------------------
 dnf_external:
   google_chrome_browser: google-chrome-stable

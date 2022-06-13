@@ -74,26 +74,6 @@
       when: glib_schemas is directory
       command: glib-compile-schemas {{ glib_schemas }}
 
-# Nodejs Packages (npm) ----------------------------------------
-- name: apps | install node modules
-  tags:
-    - npm
-    - node
-    - nodejs
-    - round2
-  timeout: 300
-  block:
-    - name: check if npm is installed 
-      become: true
-      become_user: "{{ user }}"
-      ignore_errors: true
-      command: which npm
-      register: npm_bin
-    - name: install npm modules globally
-      become: true
-      when: npm_bin.rc == 0
-      command: "npm install --location=global {{ npm | join(' ') }}"
-
 # Third Party RPM Packages ----------------------------------------
 - name: apps | install third party rpm packages with dnf
   become: true
