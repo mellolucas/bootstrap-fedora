@@ -4,6 +4,22 @@ github:
   ansible_bootstrap: "mellolucas/bootstrap-fedora"
   displaylink: "displaylink-rpm/displaylink-rpm"
   nerdctl: "containerd/nerdctl"
+  trustedsec_socialengineertoolkit: "trustedsec/social-engineer-toolkit"
+  trustedsec_ptf: "trustedsec/ptf"
+  hackersploit_bugbountytoolkit: "AlexisAhmed/BugBountyToolki"
+
+dockerhub:
+  kali_bleedingedge: "kalilinux/kali-bleeding-edge"
+  offsec_metasploit: "metasploitframework/metasploit-framework"
+  parrot_core: "parrotsec/core:rolling-amd64"
+  parrot_security: "parrotsec/security:rolling"
+  owasp_juiceshop: "bkimminich/juice-shop"
+  owasp_zap: "owasp/zap2docker-weekly"
+  owasp_securityshepherd: "owasp/security-shepherd"
+  owasp_dependencycheck: "owasp/dependency-check-action"
+  owasp_modsecurity: "owasp/modsecurity"
+  owasp_crs: "owasp/modsecurity-crs"
+  hackersploit_bugbountytoolkit: "hackersploit/bugbountytoolkit"
 
 flatpak_remote:
   flathub: 
