@@ -11,8 +11,8 @@
       register: path_rootless_setup_tool
     - name: run rootless setup tools
       command: "{{ path_rootless_setup_tool.stdout_lines[0] }} check"
-
-
+    - name: setup rootless buildkit with containerd worker
+      shell: "CONTAINERD_NAMESPACE=default containerd-rootless-setuptool.sh install-buildkit-containerd"
 # GVisor ----------------------------------------
 
 
