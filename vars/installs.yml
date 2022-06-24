@@ -50,6 +50,7 @@ dnf:
     - gnome-shell-extension-user-theme 
     - gnome-shell-extension-appindicator
     - gnome-shell-extension-dash-to-dock
+    - gnome-shell-extension-caffeine
   misc:
     - cowsay
 

@@ -36,7 +36,7 @@
   dconf:
     state: present
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['appindicatorsupport@rgcjonas.gmail.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'places-menu@gnome-shell-extensions.gcampax.github.com']"
+    value: "['appindicatorsupport@rgcjonas.gmail.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'places-menu@gnome-shell-extensions.gcampax.github.com']"
 
 # Aesthetics ----------------------------------------
 
