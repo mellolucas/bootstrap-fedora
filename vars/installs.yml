@@ -11,6 +11,7 @@ dnf:
     - libdrm-devel
     - libcurl
     - libcurl-devel
+    - python3-devel
   automation:
     - ansible
     - cronie
@@ -24,17 +25,18 @@ dnf:
     - bash-completion
     - curl
     - wget
-  coding:
+    - git-all
+  languages:
     - python3
     - python3-pip
     - golang
-    - git-all
   virtualization:
     - "@Virtualization"
     - containerd
     - container-selinux
     - containernetworking-plugins
     - golang-gvisor
+    - libvirt
   aes:
     - fira-code-fonts
   utility:
@@ -44,6 +46,7 @@ dnf:
     - dconf-editor
     - nautilus-python
     - tree
+    - android-tools
   gnome:
     - gnome-tweaks
     - gnome-extensions-app
@@ -53,11 +56,15 @@ dnf:
     - gnome-shell-extension-caffeine
   misc:
     - cowsay
+    - obs-studio
+    - v4l1loopback
+    - kmod-v4l1loopback
 
 # Flatpak Packages ----------------------------------------
 flatpak:
   flathub:
     - com.logseq.Logseq
+    - org.zaproxy.ZAP
 
 # Snap Packages ----------------------------------------
 snap:
