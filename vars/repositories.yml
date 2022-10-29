@@ -4,7 +4,7 @@ github:
   ansible_bootstrap: "mellolucas/bootstrap-fedora"
   displaylink: "displaylink-rpm/displaylink-rpm"
   nerdctl: "containerd/nerdctl"
-  nerd_fonts: "https://github.com/ryanoasis/nerd-fonts"
+  nerd_fonts: "ryanoasis/nerd-fonts"
 
 dockerhub:
   kali_bleedingedge: "kalilinux/kali-bleeding-edge"
