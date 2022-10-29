@@ -158,3 +158,39 @@
         src: "{{ data.json | to_json | from_json | json_query(jp) }}"
         dest: /usr/local
         remote_src: true
+
+# fira-code font ----------
+- name: apps | install fira code font with ligatures from nerd fonts
+  tags:
+    - font
+    - from_source
+  vars:
+    gh_repo: "https://api.github.com/repos/{{ github.nerd_fonts }}/releases/latest"
+    jp:
+      "assets[?
+        contains(name, 'FiraCode')
+      ].browser_download_url | sort(@) | reverse(@)[0]"
+    dir_out: "{{ base_dir.local }}/share/fonts/FiraCode"
+  when: github.nerd_fonts is defined
+  timeout: 600
+  block:
+    - name: get latest release from github repo
+      uri:
+        url: "{{ gh_repo }}"
+        method: GET
+        return_content: true
+        status_code: 200
+        body_format: json
+      register: data
+    - name: debug
+      debug: var=dir_out
+    - name: create out directory
+      file:
+        state: directory
+        path: "{{ dir_out }}"
+        mode: 0755
+    - name: install binaries
+      ansible.builtin.unarchive:
+        src: "{{ data.json | to_json | from_json | json_query(jp) }}"
+        dest: "{{ dir_out }}"
+        remote_src: true
