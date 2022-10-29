@@ -182,8 +182,6 @@
         status_code: 200
         body_format: json
       register: data
-    - name: debug
-      debug: var=dir_out
     - name: create out directory
       file:
         state: directory
