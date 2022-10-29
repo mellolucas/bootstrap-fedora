@@ -27,6 +27,36 @@
     state: present
     key: "/org/gnome/desktop/wm/keybindings/switch-group"
     value: "['<Super>Tab']"
+- name: prefs | keys | move window to workspace above
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-up"
+    value: "['<Super><Control><Shift>Up']"
+- name: prefs | keys | move window to workspace below
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-down"
+    value: "['<Super><Control><Shift>Down']"
+- name: prefs | keys | switch to workspace above
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-up"
+    value: "['<Super><Control>Up']"
+- name: prefs | keys | switch to workspace below
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-down"
+    value: "['<Super><Control>Down']"
+- name: prefs | keys | switch to right workspace
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right"
+    value: "['<Super><Control>Right']"
+- name: prefs | keys | switch to left workspace
+  dconf:
+    state: present
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
+    value: "['<Super><Control>Left']"
 
 - name: prefs | keys | legacy gnome windows | close tab
   dconf:
