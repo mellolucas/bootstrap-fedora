@@ -4,9 +4,6 @@ github:
   ansible_bootstrap: "mellolucas/bootstrap-fedora"
   displaylink: "displaylink-rpm/displaylink-rpm"
   nerdctl: "containerd/nerdctl"
-  trustedsec_socialengineertoolkit: "trustedsec/social-engineer-toolkit"
-  trustedsec_ptf: "trustedsec/ptf"
-  hackersploit_bugbountytoolkit: "AlexisAhmed/BugBountyToolki"
 
 dockerhub:
   kali_bleedingedge: "kalilinux/kali-bleeding-edge"
@@ -19,7 +16,6 @@ dockerhub:
   owasp_dependencycheck: "owasp/dependency-check-action"
   owasp_modsecurity: "owasp/modsecurity"
   owasp_crs: "owasp/modsecurity-crs"
-  hackersploit_bugbountytoolkit: "hackersploit/bugbountytoolkit"
 
 flatpak_remote:
   flathub: 
