@@ -162,7 +162,7 @@
 # fira-code font ----------
 - name: apps | install fira code font with ligatures from nerd fonts
   tags:
-    - font
+    - layout
     - from_source
   vars:
     gh_repo: "https://api.github.com/repos/{{ github.nerd_fonts }}/releases/latest"
@@ -192,3 +192,17 @@
         src: "{{ data.json | to_json | from_json | json_query(jp) }}"
         dest: "{{ dir_out }}"
         remote_src: true
+        include: [
+          "Fira Code Light Nerd Font Complete.ttf",
+          "Fira Code Regular Nerd Font Complete.ttf",
+          "Fira Code Retina Nerd Font Complete.ttf",
+          "Fira Code Medium Nerd Font Complete.ttf",
+          "Fira Code SemiBold Nerd Font Complete.ttf",
+          "Fira Code Bold Nerd Font Complete.ttf",
+          "Fira Code Light Nerd Font Complete Mono.ttf",
+          "Fira Code Regular Nerd Font Complete Mono.ttf",
+          "Fira Code Retina Nerd Font Complete Mono.ttf",
+          "Fira Code Medium Nerd Font Complete Mono.ttf",
+          "Fira Code SemiBold Nerd Font Complete Mono.ttf",
+          "Fira Code Bold Nerd Font Complete Mono.ttf"
+        ]

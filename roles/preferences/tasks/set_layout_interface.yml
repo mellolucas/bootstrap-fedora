@@ -49,12 +49,12 @@
   dconf:
     state: present
     key: "/org/gnome/desktop/interface/document-font-name"
-    value: "'Fira Code 11'"
+    value: "'FiraCode Nerd Font 11'"
 - name: prefs | interface | aes | set monospace text font 
   dconf:
     state: present
     key: "/org/gnome/desktop/interface/monospace-font-name"
-    value: "'Fira Code 11'"
+    value: "'FiraCode Nerd Font 11'"
 - name: prefs | interface | aes | set legacy window title font 
   dconf:
     state: present
@@ -69,7 +69,7 @@
   dconf:
     state: present
     key: "/desktop/ibus/panel/custom-font"
-    value: "'Fira Code 10'"
+    value: "'FiraCode Nerd Font 10'"
 
 - name: prefs | interface | aes | enable menus tearoff
   dconf:
