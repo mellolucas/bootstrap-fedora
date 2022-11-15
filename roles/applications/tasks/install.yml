@@ -89,7 +89,13 @@
   notify:
     - reload systemd
 
+
+# Third Party RPM Packages ----------------------------------------
 # displaylink ----------
+- name: apps | set displaylink driver installation type
+  ansible.builtin.set_fact:
+    displaylink_install_type: "devel" # devel or release
+
 - name: apps | install displaylink drivers from source with dnf
   become: yes
   tags:
@@ -103,7 +109,7 @@
         contains(browser_download_url, '{{ distribution.name }}') && 
         contains(browser_download_url, '{{ arch }}')
       ].browser_download_url | sort(@) | reverse(@)[0]"
-  when: github.displaylink | length > 0 
+  when: github.displaylink | length > 0 and displaylinkl_install_type == 'release'
   timeout: 300
   block:
     - name: check if any displaylink hardware exists
@@ -117,13 +123,116 @@
         return_content: true
         status_code: 200
         body_format: json
-      register: data
+      register: data_release
     - name: install rpm
-      when: displaylink_connected.rc == 0
+      when: displaylink_connected.rc == 0 and 
       dnf:
         state: latest
         disable_gpg_check: true
-        name: "{{ data.json | to_json | from_json | json_query(jp) }}"
+        name: "{{ data_release.json | to_json | from_json | json_query(jp) }}"
+
+- name: apps | build install displaylink devel drivers from source
+  tags:
+    - round2
+    - displaylink
+    - from_source
+  vars:
+    host_installer: "www.synaptics.com"
+    path_installer: "products/displaylink-graphics/downloads/ubuntu"
+  when: github.displaylink | length > 0 and displaylink_install_type == 'devel'
+  timeout: 300
+    - name: fetch installer url
+      uri:
+        url: "https://{{ host_installer }}/{{ path_installer }}"
+        return_content: true
+      register: data_fetched
+    - name: find installer
+      ansible.builtin.set_fact:
+        url_installer: >-
+          https://{{ host_installer }}/{{ 
+            data_fetched.content |
+            regex_search('/sites/default/files/release.*.txt') |
+            regex_replace('release_notes', 'exe_files') |
+            regex_replace('Release.*', 'EXE.zip') 
+          }}
+    - name: create temp dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: displaylinkdriver
+      register: tempdir
+    - name: download installer
+      ansible.builtin.unarchive:
+        src: "{{ url_installer }}"
+        dest: "{{ tempdir.path }}"
+        remote_src: true
+    - name: find installer exe file
+      ansible.builtin.find:
+        path: "{{ tempdir.path }}"
+        patterns: 'displaylink*'
+      register: file_installer
+    - name: extract installer content
+      ansible.builtin.shell:
+        cmd: "{{ file_installer.files[0].path }} --noexec --keep"
+        chdir: "{{ tempdir.path }}"
+    - name: modify installer script for compatibility
+      ansible.builtin.replace:
+        path: >-
+          {{ 
+            file_installer.files[0].path | regex_replace('.run', '') 
+          }}/displaylink-installer.sh
+        regexp: "{{ item.pattern }}"
+        replace: "{{ item.replace }}"
+      loop:
+        - { "pattern": " apt ", "replace": " dnf " }
+        - { "pattern": "--simulate", "replace": "--assumeno" }
+        - { "pattern": "libc6-deve?l?", "replace": "glibc-devel" }
+        - { "pattern": "libdrm-deve?l?", "replace": "libdrm-devel" }
+    - name: clone displaylink-rpm repo
+      ansible.builtin.git:
+        repo: "https://github.com/{{ github.displaylink }}.git"
+        dest: "{{ tempdir.path }}/displaylink-rpm"
+        clone: true
+        update: true
+        recursive: true
+        track_submodules: true
+    - name: make devel
+      ansible.builtin.shell:
+        cmd: make devel
+        chdir: "{{ tempdir.path }}/displaylink-rpm"
+    - name: find evdi release file
+      ansible.builtin.find:
+        path: "{{ tempdir.path }}/displaylink-rpm"
+        patterns: 'v*'
+      register: file_evdi
+    - name: create evdi_release dir
+      file:
+        state: directory
+        path: "{{ tempdir.path }}/evdi_release"
+        mode: 0755
+    - name: extract evdi release components
+      ansible.builtin.unarchive:
+        src: "{{ file_evdi.files[0].path }}"
+        dest: "{{ tempdir.path }}/evdi_release"
+        remote_src: true
+        extra_opts:
+          - --strip-components=1
+    - name: compress devel release and replace evdi dkms module with it
+      community.general.archive:
+        path: "{{ tempdir.path }}/evdi_release/*"
+        dest: >-
+          {{ 
+            file_installer.files[0].path | regex_replace('.run', '') 
+          }}/evdi.tar.gz
+        format: gz
+    - name: run the modified installer script
+      become: true
+      ansible.builtin.shell:
+        cmd: >-
+          {{ 
+            file_installer.files[0].path | regex_replace('.run', '') 
+          }}/displaylink-installer.sh
+        chdir: "{{ file_installer.files[0].path | regex_replace('.run', '') }}" 
+
 
 # Binaries From Source ----------------------------------------
 # nerdctl ----------
