@@ -17,7 +17,8 @@
         path: "{{ workspace.projects_dir }}/dotfiles"
         file_type: directory
         use_regex: true
-        recurse: no
+        recurse: false
+        follow: true
         hidden: false
       register: dotfiles_dirs_ws
     - name: symlink workspace directories to user's home
@@ -44,7 +45,8 @@
         file_type: directory
         use_regex: true
         patterns: '^.*\.d$'
-        recurse: no
+        recurse: false
+        follow: true
         hidden: true
       register: dotfiles_dirs_runcom
     - name: symlink runcom directories to user's home
@@ -64,7 +66,7 @@
         file_type: file
         use_regex: true
         patterns: '^\.[a-zA-Z0-9\-_]*rc$'
-        recurse: no
+        recurse: false
         hidden: true
       register: dotfiles_files_runcom
     - name: symlink runcom files to user's home
