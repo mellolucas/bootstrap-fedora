@@ -30,11 +30,11 @@
       when: item.path is directory
     - name: enable nautilus templates
       lineinfile:
-        path: "{{ base_dir.config }}/user-dirs.dirs"
+        path: "{{ base_dir.config }}/user-dirs.dirs }}"
         state: present
         backup: true
         regexp: XDG_TEMPLATES_DIR
-        line: XDG_TEMPLATES_DIR="{{ workspace.templates_dir }}"
+        line: "XDG_TEMPLATES_DIR={{ workspace.templates_dir }}"
 
 - name: setup | dotfiles | integrate runcom directories
   block:
