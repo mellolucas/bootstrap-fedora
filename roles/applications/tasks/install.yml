@@ -141,6 +141,7 @@
     path_installer: "products/displaylink-graphics/downloads/ubuntu"
   when: github.displaylink | length > 0 and displaylink_install_type == 'devel'
   timeout: 300
+  block:
     - name: fetch installer url
       uri:
         url: "https://{{ host_installer }}/{{ path_installer }}"
