@@ -10,4 +10,33 @@
   when: vscode_bin.rc == 0
   command : code --install-extension {{ item }} --force
 
-# TODO: integrate vscode configs
+- name: setup | vscode | integrate dotfiles
+  tags: vscode
+  when: vscode_bin.rc == 0
+  block:
+    - name: find all '*.rc' files within vscode runcom directory
+      find:
+        path: "{{ settings.vscode.runcom_dir }}"
+        file_type: file
+        use_regex: true
+        patterns: '^\.[a-zA-Z0-9\-_]*.json$'
+        recurse: false
+        follow: true
+        hidden: true
+      register: vscode_files_runcom
+    - name: backup existing config files
+      loop: "{{ vscode_files_runcom.files }}"
+      copy:
+        remote_src: true
+        src: "{{ base_dir.config }}/Code/User/{{ item.path | basename }}"
+        dest: "{{ base_dir.config }}/Code/User/{{ item.path | basename }}.backup"
+        backup: true
+      when: "(base_dir.config + '/Code/User/' + (item.path | basename)) is file"
+    - name: symlink runcom files to vscode's default settings folder
+      loop: "{{ vscode_files_runcom.files }}"
+      file:
+        src: "{{ item.path }}"
+        dest: "{{ base_dir.config }}/Code/User/{{ item.path | basename }}"
+        state: link
+        force: true
+      when: item.path is file
