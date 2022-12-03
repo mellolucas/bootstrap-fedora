@@ -125,7 +125,7 @@
         body_format: json
       register: data_release
     - name: install rpm
-      when: displaylink_connected.rc == 0 and 
+      when: displaylink_connected.rc == 0
       dnf:
         state: latest
         disable_gpg_check: true
