@@ -21,12 +21,12 @@
   dconf:
     state: present
     key: "/org/gnome/desktop/wm/keybindings/switch-applications"
-    value: "['<Alt>Tab']"
+    value: "['<Super>Tab']"
 - name: prefs | keys | switch windows of an application
   dconf:
     state: present
     key: "/org/gnome/desktop/wm/keybindings/switch-group"
-    value: "['<Super>Tab']"
+    value: "['<Alt>Tab']"
 - name: prefs | keys | move window to workspace above
   dconf:
     state: present
