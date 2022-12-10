@@ -1,0 +1,24 @@
+# repositories
+Check mainly here:
+https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/
+https://docs.fedoraproject.org/en-US/quick-docs/dnf/
+https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/#installing-chrome
+https://docs.fedoraproject.org/en-US/workstation-working-group/third-party-repos/
+https://docs.flatpak.org/en/latest/using-flatpak.html
+https://docs.fedoraproject.org/en-US/workstation-docs/software-repos/#_third_party_repositories
+
+for the best approach for each repo/3rd app 
+
+# fonts
+check and adjust after font install:
+https://docs.fedoraproject.org/en-US/quick-docs/fonts/#system-fonts
+
+# auto updates
+https://docs.fedoraproject.org/en-US/quick-docs/securing-the-system-by-keeping-it-up-to-date/#setting-automatic-updates
+https://docs.fedoraproject.org/en-US/quick-docs/autoupdates/
+
+# post upgrade tasks
+https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/#sect-optional-post-upgrade-tasks
+
+# firefox
+link firefoxrc to .mozilla/*.default../user.js
