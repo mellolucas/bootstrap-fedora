@@ -30,6 +30,8 @@
         state: present
         update_cache: true
         name: "{{ item.baseurl }}"
+    - name: enable appstream data
+      ansible.builtin.command: dnf group update core
 
 # Third Party RPM Repositories ----------------------------------------
 - name: apps | add 3rd party rpm repositories
@@ -72,3 +74,4 @@
         state: link
         src: /var/lib/snapd/snap
         dest: /snap
+
