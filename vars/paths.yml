@@ -36,6 +36,8 @@ settings:
     runcom_file: "{{ home }}/.terminatorrc"
   vscode:
     runcom_dir: "{{ home }}/.vscode.d" 
+  firefox: 
+    runcom_file: "{{ home }}/.firefoxrc"
 
 workspace:
   projects_dir: "{{ home }}/Projects"

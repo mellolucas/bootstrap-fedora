@@ -1,0 +1,27 @@
+---
+- name: setup | firefox | check if firefox is installed
+  tags: firefox 
+  command: which firefox
+  register: firefox_bin
+
+- name: setup | firefox | integrate dotfiles
+  tags: firefox 
+  when: firefox_bix.rc == 0
+  block:
+    - name: find default user's config directory
+      find:
+        path: "{{ home }}/.mozilla/firefox"
+        file_type: directory
+        use_regex: true
+        patterns: '^[a-zA-Z0-9\-_]*\.default-release$'
+        recurse: false
+        follow: true
+        hidden: true
+      register: firefox_user_dir
+    - name: symlink runcom file to firefox's default settings folder
+      file:
+        src: "{{ settings.firefox.runcom_file }}"
+        dest: "{{ firefox_user_dir.files[0].path }}/user.js"
+        state: link
+        force: true
+      when: settings.firefox.runcom_file is file
